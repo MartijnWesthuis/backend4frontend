@@ -8,22 +8,23 @@ server:
     include-binding-errors: always
     include-message: always
     include-stacktrace: on_param
-  port: ${SERVER_PORT:8080}
+  port: ${SERVER_PORT:8080}  # Default to 8080 unless SERVER_PORT is specified
 
 spring:
   datasource:
-    username: ${DATASOURCE_USERNAME:sa}
-    password: ${DATASOURCE_PASSWORD:''}
-    url: ${DATASOURCE_URL:jdbc:h2:mem:testdb}
+    username: ${DATASOURCE_USERNAME:sa}  # Defaults to 'sa' if DATASOURCE_USERNAME not specified
+    password: ${DATASOURCE_PASSWORD:''}  # Empty password by default
+    url: ${DATASOURCE_URL:jdbc:h2:mem:testdb}  # Defaults to H2 in-memory DB if DATASOURCE_URL not specified
   jpa:
     hibernate:
       ddl-auto: update
+      dialect: org.hibernate.dialect.PostgreSQLDialect  # Setting Hibernate dialect for PostgreSQL
     properties:
       hibernate:
         jdbc:
           lob:
             non_contextual_creation: true
-    show-sql: true
+    show-sql: true  # Logs all SQL statements
 
 springdoc:
   api-docs:
